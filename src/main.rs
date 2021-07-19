@@ -1,3 +1,4 @@
+#![feature(asm, panic_info_message)]
 #![warn(clippy::all, clippy::nursery, clippy::pedantic, rust_2018_idioms)]
 // Safety-critical application lints
 #![deny(
@@ -18,17 +19,26 @@
 // To use the `unsafe` keyword, do not remove the `unsafe_code` attribute entirely.
 // Instead, change it to `#![allow(unsafe_code)]` or preferably `#![deny(unsafe_code)]` + opt-in
 // with local `#[allow(unsafe_code)]`'s on a case-by-case basis, if practical.
-#![forbid(unsafe_code)]
+#![deny(unsafe_code)]
 #![forbid(bare_trait_objects)]
 // Uncomment before ship to reconcile use of possibly redundant crates, debug remnants, missing
 // license files and more
 // #![allow(clippy::blanket_clippy_restriction_lints)]
 // #![warn(clippy::cargo, clippy::restriction, missing_docs, warnings)]
 // #![allow(clippy::implicit_return)]
+#![no_std]
+#![no_main]
 
-use lib::{self, error::Result, lib_main, Args};
-use structopt::StructOpt;
+mod consts;
+mod error;
+mod handler;
 
-fn main() -> Result<()> {
-    lib_main(Args::from_args())
+use crate::handler::abort::abort;
+
+fn main() -> ! {
+    sleep()
+}
+
+fn sleep() -> ! {
+    abort()
 }

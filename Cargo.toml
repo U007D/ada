@@ -10,13 +10,11 @@ readme = "README.md"
 repository = "https://github.com/u007d/ada"
 version = "0.1.0"
 
-[lib]
-name = "lib"
-path = "src/lib.rs"
-
 [dependencies]
 structopt = "0.3.21"
 thiserror = "1.0.25"
+he_std = { git = "ssh://git@github.com/u007d/he_std" }
+core-error = { git = "https://github.com/core-error/core-error" }
 
 [dev-dependencies]
 assert2 = "0.3.5"
@@ -26,7 +24,7 @@ debug = true
 debug-assertions = true
 lto = false
 opt-level = 0
-panic = "unwind"
+panic = "abort"
 rpath = false
 
 [profile.release]
@@ -35,7 +33,7 @@ debug = false
 debug-assertions = false
 lto = "fat"
 opt-level = 3
-panic = "unwind"
+panic = "abort"
 rpath = false
 
 [profile.test]
